@@ -1,4 +1,4 @@
-use bookings
+use hotel_bookings
 
 db.dropDatabase();
 

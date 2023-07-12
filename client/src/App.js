@@ -1,20 +1,19 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import BookingGrid from './BookingList'
+
+import BookingList from './BookingList';
 import BookingForm from './BookingForm';
 
 
-import React, { useState, useEffect } from 'react';
-
-function App() {
+const App = () => {
 
   const [bookings, setBookings] = useState([]);
-  
+
   useEffect(() => {
     fetch("http://localhost:9000/api/bookings")
       .then((data) => data.json())
       .then(response => setBookings(response))
-  }, []);
+  }, [bookings]);
 
   const addBooking = (booking) => {
     fetch("http://localhost:9000/api/bookings", {
@@ -36,15 +35,12 @@ function App() {
   if (!bookings) {
     return (<h1> loading...</h1>)
   }
-
-
   return (
     <>
       <div className="App">
         <h1> hello world</h1>
-        <BookingForm addBooking={addBooking}/>
-        <BookingGrid bookings={bookings} />
-
+        <BookingForm addBooking={addBooking} />
+        <BookingList bookings={bookings} />
       </div>
     </>
   );
